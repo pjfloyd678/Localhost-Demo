@@ -1,0 +1,24 @@
+@media screen and (max-width: 768px) {
+    .starter-template {
+        padding: 2rem 1.5rem 0rem 0rem;
+        text-align: center;
+    }
+}
+@media screen and (max-width: 640px) {
+    .starter-template {
+        padding: 2rem 1.5rem 0rem 0rem;
+        text-align: center;
+    }
+}
+@media screen and (max-width: 425px) {
+    .starter-template {
+        padding: 2rem 1.5rem 0rem 0rem;
+        text-align: center;
+    }
+}
+@media screen and (max-width: 320px) {
+    .starter-template {
+        padding: 3rem 1.5rem 0rem 0rem;
+        text-align: center;
+    }
+}

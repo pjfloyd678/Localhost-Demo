@@ -1,0 +1,118 @@
+/* 
+    Created on : 31-Jul-2018, 9:36:31 AM
+    Author     : peter.floyd
+*/
+body {
+    padding-top: 3.5rem;
+}
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+button {
+    border: 0;
+    background-color: #ffffff;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    padding: 2px;
+}
+.fa-trash {
+    font-size: 24px;
+}
+.error {
+    font-weight: bold;
+    color: red;
+}
+
+#add-row {
+    display: none;
+}
+
+#all-data {
+    display: flex;
+    margin-bottom: 12px;
+    padding: 12px;
+}
+span.centerText {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.thin {
+    padding-top: 0px;
+    padding-bottom: 1px;
+    margin-top: 0px;
+    margin-bottom: 1px;
+}
+
+.left {
+    float: left;
+}
+
+.row.col-sm-12.main:hover {
+    background-color: #fafafa;
+}
+
+.row.col-sm-12.main {
+    padding: 2px;
+}
+
+#edit-form {
+    display: none;
+}
+
+.slideRight {
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.inside-box {
+    display: block;
+    margin-left: auto;
+    width: auto;
+    min-width: 60px;
+    float: right;
+    border: 1px solid darkgray;
+    background-color: white;
+}
+span.showdate {
+    display: block;
+    padding: .5rem 1rem;
+    color: white;
+}
+
+#all-items {
+    width: 99%;
+}
+.sortable { 
+    margin: 0 3px 3px 3px; 
+    padding: 0.4em; 
+    padding-left: 1.5em; 
+    font-size: 1.1em; 
+    height: 44px; 
+}
+.sortable span { 
+    position: absolute; 
+    margin-left: -1.3em; 
+}
+.span-middle {
+    margin-top: 7px;
+}
+
+html>body .sortable { 
+    height: 2.5em; 
+    line-height: 1.5em; 
+}
+.ui-state-highlight { 
+    height: 3.25em; 
+    line-height: 1.2em; 
+    background-color: lightblue;
+}
+
+#dialog-confirm {
+    display: none;
+}
