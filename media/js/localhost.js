@@ -35,6 +35,13 @@ $(document).ready(function() {
             saveOrder( order );
         }
     });
+    
+    $( "#view-type" ).click( function( evt ) {
+        var type = $(this).data( 'view' );
+        if ( type === 'default' ) {
+            
+        }
+    });
 });
 
 function saveOrder( newOrder ) {

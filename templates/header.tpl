@@ -43,6 +43,9 @@
                     <li class="nav-item">
                         <span class="showdate">{$smarty.now|date_format:"%Y-%m-%d"}</span>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="view-type" data-view="default">View</a>
+                    </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
