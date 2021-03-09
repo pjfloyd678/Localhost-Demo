@@ -20,7 +20,7 @@ if ($id === '') {
     echo json_encode($response);
     exit();
 }
-$dbConnect = new dbConnect();
+$dbConnect = new dbConnect( DBFILENAME );
 $result = (array) $dbConnect->deleteData($id); 
 echo json_encode($result);
 exit();

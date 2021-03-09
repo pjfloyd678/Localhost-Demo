@@ -26,7 +26,7 @@ if ($id === '' || $sort === '' || $direction === '') {
 //All data is here --> continue!
 $originalSort = intval($sort);
 //Connect to DB
-$dbConnect = new dbConnect();
+$dbConnect = new dbConnect( DBFILENAME );
 
 if ($direction === "UP") {
     $checkSort = $originalSort - 10;

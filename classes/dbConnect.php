@@ -4,6 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+define( "DBFILENAME", __DIR__ . "\..\configs\dbconfig.xml" );
+
 /**
  * Description of db
  *
@@ -11,15 +13,21 @@ error_reporting(E_ALL);
  */
 class dbConnect {
     
-    static $DBNAME    = "test";
-    static $USER      = "root";
-    static $PASSWORD  = "hgttg42";
-    static $HOST      = "localhost";
-    static $PORT      = 3306;
-    static $TABLENAME = "sites";
+    public $dbname;
+    public $username;
+    public $password;
+    public $hostname;
+    public $dbport;
+    public $tablename;
     
-    private static function connect() {
-        $mysqli = new mysqli(self::$HOST, self::$USER, self::$PASSWORD, self::$DBNAME, self::$PORT);
+    public function __construct( $filename ) {
+        if ( ! $this->readConfig( $filename ) ) {
+            die("Could not read config");
+        }
+    }
+    
+    private function connect() {
+        $mysqli = new mysqli($this->hostname, $this->username, $this->password, $this->dbname, (int) $this->dbport);
         
         if ($mysqli->connect_error) {
             die("Connection Failed: " . $conn->connect_errno);
@@ -27,13 +35,13 @@ class dbConnect {
         return $mysqli;
     }
     
-    private static function executeQuery($query) {
+    private function executeQuery($query) {
         $dataSet = [
             'code' => 0,
             'response' => []
         ];
         
-        $connect = self::connect();
+        $connect = $this->connect();
         $dbCommand = mysqli_query($connect, $query);
         
         if (!$dbCommand) {
@@ -59,51 +67,51 @@ class dbConnect {
 
     public function getAllRows() {
         
-        $query = "select * from " . self::$TABLENAME . " ORDER BY websiteSort ASC";
-        $dataSet = self::executeQuery($query);
+        $query = "select * from " . $this->tablename . " ORDER BY websiteSort ASC";
+        $dataSet = $this->executeQuery($query);
         return $dataSet;
     }
     
     public function getRowByID($id) {
-        $query = "select * from " . self::$TABLENAME . " where websiteID=" . $id;
-        $dataSet = self::executeQuery($query);
+        $query = "select * from " . $this->tablename . " where websiteID=" . $id;
+        $dataSet = $this->executeQuery($query);
         return $dataSet;
     }
     
     public function getRowByWhere($field, $value) {
-        $query = "select * from " . self::$TABLENAME . " where " . $field . "=" . $value;
-        $dataSet = self::executeQuery($query);
+        $query = "select * from " . $this->tablename . " where " . $field . "=" . $value;
+        $dataSet = $this->executeQuery($query);
         return $dataSet;
     }
     
     public function getLinks() {
-        $query = "SELECT * from " . self::$TABLENAME . " ORDER BY websiteSort ASC";
-        $dataSet = self::executeQuery($query);
+        $query = "SELECT * from " . $this->tablename . " ORDER BY websiteSort ASC";
+        $dataSet = $this->executeQuery($query);
         return $dataSet;
     }
     
     public function getMax() {
-        $query = "SELECT MAX(websiteSort) as max from " . self::$TABLENAME;
-        $dataSet = self::executeQuery($query);
+        $query = "SELECT MAX(websiteSort) as max from " . $this->tablename;
+        $dataSet = $this->executeQuery($query);
         return $dataSet;
     }
     
     public function saveData($text, $url) {
         $encodedURL = urlencode($url);
-        $query = "INSERT INTO " . self::$TABLENAME . " (`websiteID`, `websiteText`, `websiteURL`) VALUES (NULL, \"" . $text . "\", \"" . $encodedURL . "\")";
-        $dataSet = self::executeQuery($query);
+        $query = "INSERT INTO " . $this->tablename . " (`websiteID`, `websiteText`, `websiteURL`) VALUES (NULL, \"" . $text . "\", \"" . $encodedURL . "\")";
+        $dataSet = $this->executeQuery($query);
         return $dataSet;
     }
     
     public function deleteData($id) {
-        $query = "DELETE FROM " . self::$TABLENAME . " WHERE `websiteID` = " . $id;
-        $dataSet = self::executeQuery($query);
+        $query = "DELETE FROM " . $this->tablename . " WHERE `websiteID` = " . $id;
+        $dataSet = $this->executeQuery($query);
         return $dataSet;
     }
     
-    public static function updateData($id, $field, $value) {
-        $query = "UPDATE " . self::$TABLENAME . " SET `" . $field . "` = '" . $value . "' WHERE `websiteID` = " . $id;
-        $dataSet = self::executeQuery($query);
+    public function updateData($id, $field, $value) {
+        $query = "UPDATE " . $this->tablename . " SET `" . $field . "` = '" . $value . "' WHERE `websiteID` = " . $id;
+        $dataSet = $this->executeQuery($query);
         return $dataSet;
     }
     
@@ -111,8 +119,22 @@ class dbConnect {
         $websiteText = $data[ 'websiteText' ];
         $websiteURL  = urlencode( $data[ 'websiteURL' ] ); 
         $set = "SET `websiteText` = '" . $websiteText . "', `websiteURL` = '" . $websiteURL . "'";
-        $query = "UPDATE " . self::$TABLENAME . " $set WHERE `websiteID` = $id";
-        $dataSet = self::executeQuery($query);
+        $query = "UPDATE " . $this->tablename . " $set WHERE `websiteID` = $id";
+        $dataSet = $this->executeQuery($query);
         return $dataSet;
+    }
+    
+    public function readConfig( $filename ) {
+        if ( !file_exists( $filename ) ) {
+            return false;
+        }
+        $xml=simplexml_load_file( $filename );
+        $this->dbname = $xml->dbname;
+        $this->username = $xml->username;
+        $this->password = $xml->password;
+        $this->hostname = $xml->host;
+        $this->dbport = $xml->port;
+        $this->tablename = $xml->tablename;
+        return true;
     }
 }
