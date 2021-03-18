@@ -41,7 +41,7 @@
                         <a class="nav-link" href="/jquery_recaptcha/index.php">Recaptcha</a>
                     </li>
                     <li class="nav-item">
-                        <span class="showdate">{$smarty.now|date_format:"%Y-%m-%d"}</span>
+                        <span class="showdate">{if $loggedin }<a href="/auth/logout.php">Logout</a>{else}<a href="/auth/login.php">Login</a>{/if}</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" id="view-type" data-view="default">View</a>
