@@ -10,6 +10,7 @@ define( "TEMPLATES_DIR", SITE_ROOT.'/templates' );
 define( "TEMPLATES_ADMIN_DIR", SITE_ROOT.'/templates/_admin' );
 define( "TEMP_DIR", SITE_TOP . '/dynamic/templates_c/' );
 define( "HTDOCS_PATH", SITE_ROOT.'/' );
+define( "HTTPHOSTNAME", "http://localhost" );
 
 function smartyDisplay( $t, $s=NULL ) {
     global $smarty;
