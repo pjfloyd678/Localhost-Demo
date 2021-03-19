@@ -1,6 +1,6 @@
 <?php
 
-require_once( $_SERVER['DOCUMENT_ROOT'] . '/smarty/libs/Smarty.class.php' );
+require_once( __DIR__ . '/../smarty/libs/Smarty.class.php' );
 
 define( "SITE_ROOT", $_SERVER['DOCUMENT_ROOT'] );
 define( "CODE_DIR", dirname( $_SERVER['DOCUMENT_ROOT'] ) );
@@ -11,6 +11,7 @@ define( "TEMPLATES_ADMIN_DIR", SITE_ROOT.'/templates/_admin' );
 define( "TEMP_DIR", SITE_TOP . '/dynamic/templates_c/' );
 define( "HTDOCS_PATH", SITE_ROOT.'/' );
 define( "HTTPHOSTNAME", "http://localhost" );
+define( "DBCONFGFILE" , CONFIG_DIR . "/dbconfig.xml" );
 
 function smartyDisplay( $t, $s=NULL ) {
     global $smarty;

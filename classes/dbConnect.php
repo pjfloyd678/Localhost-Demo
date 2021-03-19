@@ -19,9 +19,12 @@ class dbConnect {
     public $hostname;
     public $dbport;
     public $tablename;
+    public $pdodb;
     
-    public function __construct( $filename ) {
-        if ( ! $this->readConfig( $filename ) ) {
+    static $userTable = "user";
+    
+    public function __construct() {
+        if ( ! $this->readConfig( DBFILENAME ) ) {
             die("Could not read config");
         }
     }
@@ -33,6 +36,16 @@ class dbConnect {
             die("Connection Failed: " . $conn->connect_errno);
         }
         return $mysqli;
+    }
+    
+    private function pdo_connect() {
+        try {
+            $pdodb = new PDO( "mysql:host=" . $this->hostname . ";dbname=test", $this->username, $this->password );
+            return $pdodb;
+        } catch (PDOException $e) {
+            print "Error!: " . $e->getMessage() . "<br/>";
+            die();
+        }
     }
     
     private function executeQuery($query) {
@@ -64,6 +77,72 @@ class dbConnect {
         return $dataSet;
     }
 
+    public function getUser( $id ) {
+        $query = "select * from " . self::$userTable . " where id=$id";
+        $dataSet = $this->executeQuery( $query );
+        return $dataSet;
+    }
+    
+    public function createUser( $data ) {
+        $pdb        = $this->pdo_connect();
+        $email      = $data[ 'emailaddress' ];
+        $password   = password_hash($data['password'], PASSWORD_DEFAULT);
+        $firstname  = $data[ 'firstname' ];
+        $lastname   = $data[ 'lastname' ];
+
+        $checkQuery ="SELECT * FROM " . self::$userTable . " where (emailaddress=:email)";
+        $check      = $pdb -> prepare($checkQuery);
+        $check->bindParam(':email',$email,PDO::PARAM_STR);
+        $check->execute();
+        $results    = $check->fetchAll(PDO::FETCH_ASSOC);
+        if ( $check->rowCount() > 0 || count( $results ) > 0 ) {
+            var_dump( "User exists" );
+            return false;
+        }
+        try {
+            $sql   = "INSERT INTO " . self::$userTable . " ( emailaddress, password, firstname, lastname ) VALUES( :email, :password, :firstname, :lastname )";
+            $query = $pdb->prepare($sql);
+            $query->bindParam(':email',     $email, PDO::PARAM_STR );
+            $query->bindParam(':password',  $password, PDO::PARAM_STR );
+            $query->bindParam(':firstname', $firstname, PDO::PARAM_STR );
+            $query->bindParam(':lastname',  $lastname, PDO::PARAM_STR );
+            $query->execute();
+        } catch (PDOException $e) {
+            print "Error!: " . $e->getMessage() . "<br/>";
+            die();
+        }
+        
+        $lastInsertId = $pdb->lastInsertId();
+        if ( !$lastInsertId ) {
+            var_dump( "Error creating account" );
+            return false;
+        }
+        $getQuery ="SELECT * FROM " . self::$userTable . " where (id=:id)";
+        $query    = $pdb -> prepare( $getQuery );
+        $query->bindParam( ':id', intval( $lastInsertId ), PDO::PARAM_INT );
+        $query->execute();
+        $user = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $user;
+    }
+    
+    public function deleteUser( $id ) {
+
+        $db         = $this->connect();
+        $checkQuery = "SELECT * FROM " . self::$userTable . " where id = $id";
+        $result     = $db->query( $checkQuery, MYSQLI_ASSOC );
+        if( is_array( $result ) && count( $result ) == 0 ) {
+            return false;
+        }
+        $sql       = "delete from " . self::$userTable . " where id = $id";
+        $delResult = $db->query( $sql );
+        return $delResult;
+    }
+
+    public function getAllUsers() {
+        $sql = "select * from " . self::$userTable;
+        $dataSet = $this->executeQuery( $sql );
+        return $dataSet;
+    }
 
     public function getAllRows() {
         

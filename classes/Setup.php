@@ -13,7 +13,7 @@ class Setup {
         
     }
     
-    public static function setData( $arrayData ) {
+    public function setData( $arrayData ) {
         $this->dbname    = $arrayData[ 'dbname' ];
         $this->username  = $arrayData[ 'username' ];
         $this->password  = $arrayData[ 'password' ];
@@ -27,7 +27,7 @@ class Setup {
      * @todo Create new XML file.
      * @return Boolean Was the file saved?
      */
-    public static function saveXMLFile() {
+    public function saveXMLFile() {
         return true;
     }
     
@@ -38,7 +38,7 @@ class Setup {
      * @param String $sqlFilename Name of the SQL file
      * @return boolean
      */
-    public static function updateSQLfile( $sqlFilename ) {
+    public function updateSQLfile( $sqlFilename ) {
         return true;
     }
 }

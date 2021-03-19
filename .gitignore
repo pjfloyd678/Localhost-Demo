@@ -2,3 +2,4 @@
 /jquery_recaptcha/templates_c/
 /.vscode/
 /configs/insert_my_values.sql
+/vendor/
