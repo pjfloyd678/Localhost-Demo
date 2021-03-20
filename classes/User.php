@@ -35,7 +35,7 @@ class User {
     public function create( $data ) {
         $db = new dbConnect();
         $user = $db->createUser( $data );
-        return ( is_array( $user ) ? $user : false );
+        return $user;
     }
     
     public function delete( $id ) {

@@ -16,22 +16,24 @@ class UserClassTest extends TestCase {
         ];
 
         $newUser = $user->create( $data );
-        $this->assertNotEmpty( $newUser, "New User is empty. Create Failed" );
+        $this->assertEquals( 200, $newUser['code'], 'Create failed!' );
 
-        $id = intval( $newUser[ 0 ][ 'id' ] );
-        $result1 = $user->delete( $id );
-        $this->assertEquals( 0, $result1, "Delete failed!" );
+        if ( $newUser[ 'code' ] === 200 ) {
+            $id = intval( $newUser[ 'response' ][ 0 ][ 'id' ] );
+            $result1 = $user->delete( $id );
+            $this->assertEquals( 200, $result1[ 'code'], "Delete failed!" );
 
-        $result2 = $user->getAll();
-        $found = [];
-        if ( !empty( $found ) ) {
-            foreach( $result2 as $user ) {
-                var_dump( $user );
-                if ( $user[ 'emailaddress' ] === $data[ 'emailaddress' ] ) {
-                    array_push( $found, $user );
+            $result2 = $user->getAll();
+            $found = [];
+            if ( !empty( $found ) ) {
+                foreach( $result2 as $user ) {
+                    var_dump( $user );
+                    if ( $user[ 'emailaddress' ] === $data[ 'emailaddress' ] ) {
+                        array_push( $found, $user );
+                    }
                 }
             }
+            $this->assertEmpty( $found, "Test user still exists!" );
         }
-        $this->assertEmpty( $found, "Test user still exists!" );
     }
 }

@@ -33,7 +33,7 @@ class dbConnect {
         $mysqli = new mysqli($this->hostname, $this->username, $this->password, $this->dbname, (int) $this->dbport);
         
         if ($mysqli->connect_error) {
-            die("Connection Failed: " . $conn->connect_errno);
+            die("Connection Failed: " . $mysqli->connect_errno);
         }
         return $mysqli;
     }
@@ -71,8 +71,7 @@ class dbConnect {
         } else {
             $result = $dbCommand;
         }
-        $dataSet['code'] = '200';
-        $dataSet['response'] = $result;
+        $dataSet = $this->reply( 200, $result );
         $connect->close();
         return $dataSet;
     }
@@ -85,6 +84,7 @@ class dbConnect {
     
     public function createUser( $data ) {
         $pdb        = $this->pdo_connect();
+        $db         = $this->connect();
         $email      = $data[ 'emailaddress' ];
         $password   = password_hash($data['password'], PASSWORD_DEFAULT);
         $firstname  = $data[ 'firstname' ];
@@ -96,8 +96,8 @@ class dbConnect {
         $check->execute();
         $results    = $check->fetchAll(PDO::FETCH_ASSOC);
         if ( $check->rowCount() > 0 || count( $results ) > 0 ) {
-            var_dump( "User exists" );
-            return false;
+            $dataSet = $this->reply( 400, "User exists" );
+            return $dataSet;
         }
         try {
             $sql   = "INSERT INTO " . self::$userTable . " ( emailaddress, password, firstname, lastname ) VALUES( :email, :password, :firstname, :lastname )";
@@ -108,21 +108,18 @@ class dbConnect {
             $query->bindParam(':lastname',  $lastname, PDO::PARAM_STR );
             $query->execute();
         } catch (PDOException $e) {
-            print "Error!: " . $e->getMessage() . "<br/>";
-            die();
+            $dataSet = $this->reply( $e->getCode(), $e->getMessage() );
+            return $dataSet;
         }
         
         $lastInsertId = $pdb->lastInsertId();
         if ( !$lastInsertId ) {
-            var_dump( "Error creating account" );
-            return false;
+            $dataSet = $this->reply( 401, "Error creating account" );
+            return $dataSet;
         }
-        $getQuery ="SELECT * FROM " . self::$userTable . " where (id=:id)";
-        $query    = $pdb -> prepare( $getQuery );
-        $query->bindParam( ':id', intval( $lastInsertId ), PDO::PARAM_INT );
-        $query->execute();
-        $user = $query->fetchAll(PDO::FETCH_ASSOC);
-        return $user;
+        $getQuery ="SELECT * FROM " . self::$userTable . " where id = $lastInsertId";
+        $dataSet = $this->executeQuery( $getQuery );
+        return $dataSet;
     }
     
     public function deleteUser( $id ) {
@@ -133,9 +130,9 @@ class dbConnect {
         if( is_array( $result ) && count( $result ) == 0 ) {
             return false;
         }
-        $sql       = "delete from " . self::$userTable . " where id = $id";
-        $delResult = $db->query( $sql );
-        return $delResult;
+        $query      = "delete from " . self::$userTable . " where id = $id";
+        $dataSet = $this->executeQuery($query);
+        return $dataSet;
     }
 
     public function getAllUsers() {
@@ -215,5 +212,17 @@ class dbConnect {
         $this->dbport = $xml->port;
         $this->tablename = $xml->tablename;
         return true;
+    }
+
+    private function reply( $code, $response, $json = false ) {
+        $dataSet = [
+            'code' => $code,
+            'response' => $response,
+        ];
+        if ( $json ) {
+            echo json_encode( $dataSet );
+            exit;
+        }
+        return $dataSet;
     }
 }
