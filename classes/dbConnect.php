@@ -63,10 +63,10 @@ class dbConnect {
         }
         if (is_array($dbCommand) || is_object($dbCommand)) {
             $result = mysqli_fetch_all($dbCommand, MYSQLI_ASSOC);
-            $dbCommand->free();
         } else {
             $result = $dbCommand;
         }
+        $dbCommand->free();
         $dataSet = $this->reply( 200, $result );
         $connect->close();
         return $dataSet;
@@ -75,6 +75,22 @@ class dbConnect {
     public function getUser( $id ) {
         $query = "select * from " . self::$userTable . " where id=$id";
         $dataSet = $this->executeQuery( $query );
+        return $dataSet;
+    }
+
+    public function getUserByEmail( $email ) {
+
+        $pdb        = $this->pdo_connect();
+        $checkQuery ="SELECT * FROM " . self::$userTable . " where (emailaddress=:email)";
+        $check      = $pdb -> prepare($checkQuery);
+        $check->bindParam(':email',$email,PDO::PARAM_STR);
+        $check->execute();
+        $results    = $check->fetchAll(PDO::FETCH_ASSOC);
+        if ( $check->rowCount() > 0 || count( $results ) > 0 ) {
+            $dataSet = $this->reply( 200, $results );
+        } else {
+            $dataSet = $this->reply( 200, array() );
+        }
         return $dataSet;
     }
     

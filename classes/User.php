@@ -20,6 +20,12 @@ class User {
         }
     }
 
+    public function getByEmail( $emailAddress ) {
+        $db = new dbConnect();
+        $result = $db->getUserByEmail( $emailAddress );
+        return $result;
+    }
+
     public function getAll() {
         $db = new dbConnect();
         $result = $db->getAllUsers();

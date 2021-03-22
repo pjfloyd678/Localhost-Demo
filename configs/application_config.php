@@ -29,3 +29,15 @@ $smarty->compile_check = true;
 $smarty->force_compile = false;
 $smarty->compile_dir = TEMP_DIR;
 $smarty->template_dir = TEMPLATES_DIR;
+
+function display( $code, $response, $json = false ) {
+    $data = [
+        'code' => $code,
+        'response' => $response,
+    ];
+    if ( $json ) {
+        echo json_encode( $data );
+        exit(0);
+    }
+    return $data;
+}

@@ -42,6 +42,22 @@ $(document).ready(function() {
             
         }
     });
+
+    if ( $( "#emailaddress" ).length ) {
+        $( "#emailaddress" ).blur( function( ) {
+            var emailAddress = $( "#emailaddress" ).val();
+            $.get( '/api/checkEmail.php?emailaddress=' + emailAddress, function( data) {
+                var result = JSON.parse( data );
+                if ( result ) {
+                    $( '#error-message' ).html( 'Sorry that email exists!' );
+                    $( "#emailaddress" ).focus();
+                } else {
+                    $( '#error-message' ).html( '' );
+                }
+            });
+        });
+    }
+
 });
 
 function saveOrder( newOrder ) {
