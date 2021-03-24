@@ -3,13 +3,34 @@ ini_set( 'display_errors', 1 );
 ini_set( 'display_startup_errors', 1 );
 error_reporting( E_ALL );
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/configs/application_config.php';
-require_once '../classes/Sessions.php';
+require_once __DIR__ . '/../configs/application_config.php';
+require_once __DIR__ . '/../classes/Sessions.php';
+require_once __DIR__ . '/../classes/User.php';
+require_once __DIR__ . '/PasswordHash.php';
+
 session_start();
+$cUser = new User();
+$passHash = new PasswordHash( 8, false );
+
 if ( !empty( $_POST ) ) {
-    $u = filter_input( INPUT_POST, "emailaddress" );
-    $p = filter_input( INPUT_POST, "password" );
-    if ( $u === "peterjfloyd@gmail.com" && $p === "v7%scHJwC%z#SnV%" ) {
+    $e    = filter_input( INPUT_POST, "emailaddress" );
+    $p    = filter_input( INPUT_POST, "password" );
+    $data = $cUser->getByEmail( $e );
+    $r    = $data[ 'response' ][ 0 ];
+    if ( empty( $r ) === 0 ) {
+        // Invalid User - Error!
+        echo "Invalid User - Bad Email!";
+        die(1);
+    }
+    $user = $data[ 'response' ][ 0 ];
+    if ( $user[ 'emailaddress' ] === $e ) {
+        $check = $passHash->CheckPassword( $p, $user[ 'password' ] );
+        if ( !$check ) {
+            // Invalid Password - Error
+            echo "Invalid User - Bad Password!";
+            die(1);
+        }
+        // Valid Email and Password - Continue
         $_SESSION[ 'loggedIn' ] = true;
         Sessions::redirect("index.php");
         exit();

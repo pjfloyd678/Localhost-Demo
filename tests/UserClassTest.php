@@ -27,6 +27,42 @@ class UserClassTest extends TestCase {
             $found = [];
             if ( !empty( $found ) ) {
                 foreach( $result2 as $user ) {
+                    if ( $user[ 'emailaddress' ] === $data[ 'emailaddress' ] ) {
+                        array_push( $found, $user );
+                    }
+                }
+            }
+            $this->assertEmpty( $found, "Test user still exists!" );
+        }
+    }
+
+    public function testUserPass(): void {
+        $user = new User();
+        $data = [
+            'emailaddress' => 'peterjfloyd+testing@gmail.com',
+            'password' => 'dAY9&8aWX7^HRPwa',
+            'firstname' => 'Peter',
+            'lastname' => 'Floyd'
+        ];
+
+        $newUser = $user->create( $data );
+        $this->assertEquals( 200, $newUser['code'], 'Create failed!' );
+
+        if ( $newUser[ 'code' ] === 200 ) {
+            $res = $user->login( $data[ 'emailaddress' ], $data[ 'password' ] );
+            var_dump( $res );
+            die(1);
+            if ( $res[ 'code' ] === 200 ) {
+                $this->assertCount( 1, count( $res[ 'response' ] ), 'login failed - wrong count' );
+            }
+            $id = intval( $res[ 'response' ][ 0 ][ 'id' ] );
+            $result1 = $user->delete( $id );
+            $this->assertEquals( 200, $result1[ 'code'], "Delete failed!" );
+
+            $result2 = $user->getAll();
+            $found = [];
+            if ( !empty( $found ) ) {
+                foreach( $result2 as $user ) {
                     var_dump( $user );
                     if ( $user[ 'emailaddress' ] === $data[ 'emailaddress' ] ) {
                         array_push( $found, $user );

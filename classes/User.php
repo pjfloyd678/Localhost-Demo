@@ -21,8 +21,14 @@ class User {
     }
 
     public function getByEmail( $emailAddress ) {
-        $db = new dbConnect();
+        $db     = new dbConnect();
         $result = $db->getUserByEmail( $emailAddress );
+        return $result;
+    }
+
+    public function login( $emailAddress, $password ) {
+        $db     = new dbConnect();
+        $result = $db->doLogin( $emailAddress, $password );
         return $result;
     }
 
