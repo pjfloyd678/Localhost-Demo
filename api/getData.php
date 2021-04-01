@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 include_once '../classes/dbConnect.php';
 
-$dbConnect = new dbConnect( DBFILENAME );
+$dbConnect = new dbConnect();
 $result = (array) $dbConnect->getLinks();
 echo json_encode($result);
 exit();

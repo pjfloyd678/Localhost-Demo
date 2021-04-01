@@ -21,7 +21,7 @@ if ($text === '' || $url === '') {
     echo json_encode($response);
     exit();
 }
-$dbConnect = new dbConnect( DBFILENAME );
+$dbConnect = new dbConnect();
 $result = (array) $dbConnect->saveData($text, $url);
 if (!$result) {
     $response['code'] = 503;
