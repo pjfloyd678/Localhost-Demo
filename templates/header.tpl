@@ -37,6 +37,9 @@
                         <span class="showdate">{if $loggedin }<a href="/auth/logout.php">Logout</a>{else}<a href="/auth/login.php">Login</a>{/if}</span>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/info.php" id="view-type" data-view="default" target="_blank">Info</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#" id="view-type" data-view="default">View</a>
                     </li>
                 </ul>
