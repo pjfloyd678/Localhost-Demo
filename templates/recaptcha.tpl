@@ -1,4 +1,3 @@
-{config_load file="test.conf" section="setup"}
 {include file="header.tpl" title=foo}
 
 <style type="text/css">
@@ -26,5 +25,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="/media/js/img-recaptcha.js"></script>
 {include file="footer.tpl"}

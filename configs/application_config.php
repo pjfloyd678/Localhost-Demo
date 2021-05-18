@@ -1,7 +1,5 @@
 <?php
 
-require_once( __DIR__ . '/../smarty/libs/Smarty.class.php' );
-
 define( "SITE_ROOT", $_SERVER['DOCUMENT_ROOT'] );
 define( "CODE_DIR", dirname( $_SERVER['DOCUMENT_ROOT'] ) );
 define( "SITE_TOP", dirname( CODE_DIR ) );
@@ -12,6 +10,25 @@ define( "TEMP_DIR", SITE_TOP . '/dynamic/templates_c/' );
 define( "HTDOCS_PATH", SITE_ROOT.'/' );
 define( "HTTPHOSTNAME", "http://localhost" );
 define( "DBCONFGFILE" , CONFIG_DIR . "/dbconfig.xml" );
+
+require_once( __DIR__ . '/../smarty/libs/Smarty.class.php' );
+require_once $_SERVER['DOCUMENT_ROOT'] . '/classes/dbConnect.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/classes/Sessions.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/smarty/libs/Smarty.class.php';
+
+session_start();
+
+$smarty = new Smarty();
+$smarty->setTemplateDir( $_SERVER[ 'DOCUMENT_ROOT' ] . '/templates/' );
+$smarty->setConfigDir( $_SERVER[ 'DOCUMENT_ROOT' ] . '/configs/' );
+
+$dbConnect = new DBConnect( DBCONFGFILE );
+
+if ( empty( $_SESSION ) || !Sessions::isLoggedIn() ) {
+    $smarty->assign( 'loggedin', false );
+    $smarty->display( 'auth/login.tpl' );
+    exit();
+}
 
 function smartyDisplay( $t, $s=NULL ) {
     global $smarty;

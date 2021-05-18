@@ -11,5 +11,6 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <!-- Load Scripts -->
         <script src="/media/js/localhost.js" type="text/javascript"></script>
+        <script src="/media/js/img-recaptcha.js" type="text/javascript"></script>
     </body>
 </html>
