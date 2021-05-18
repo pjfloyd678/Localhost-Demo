@@ -6,6 +6,7 @@ require_once('./classes/Setup.php');
 
 $smarty = new Smarty();
 if ( ! $_POST ) {
+    $smarty->assign( 'loggedin', false );
     $smarty->display( 'setup.tpl' );
     exit();
 }

@@ -4,7 +4,9 @@
     <hr style="padding: 4px;"/>
     <div class="row border rounded" id="all-data">
         <div class="row col-sm-12 main" id="page-header">
-            <div class="col-sm-8"><h3>Website URL</h3></div>
+            <div class="col-sm-8"><h3>Step 1: Database Information</h3></div>
+            <p>In order to setup the appliction, we need some database information.<br/>
+            Please fill out the following form.</p>
         </div>
         <div class="success" id="success"></div>
         <div class="error" id="errorMessage"></div>
@@ -42,7 +44,7 @@
                 
                 <div class="form-button">
                     <button name="submit_form" id="update_form" type="submit" class="btn btn-success">
-                        <span>Save Data</span>
+                        <span>Save Data and Continue</span>
                     </button>
                 </div>
 
