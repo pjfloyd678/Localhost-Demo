@@ -4,3 +4,4 @@
 /configs/insert_my_values.sql
 /vendor/
 /xml/templates_c/
+/auth/templates_c/

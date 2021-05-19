@@ -16,19 +16,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/classes/dbConnect.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/classes/Sessions.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/smarty/libs/Smarty.class.php';
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $smarty = new Smarty();
 $smarty->setTemplateDir( $_SERVER[ 'DOCUMENT_ROOT' ] . '/templates/' );
 $smarty->setConfigDir( $_SERVER[ 'DOCUMENT_ROOT' ] . '/configs/' );
 
 $dbConnect = new DBConnect( DBCONFGFILE );
-
-if ( empty( $_SESSION ) || !Sessions::isLoggedIn() ) {
-    $smarty->assign( 'loggedin', false );
-    $smarty->display( 'auth/login.tpl' );
-    exit();
-}
 
 function smartyDisplay( $t, $s=NULL ) {
     global $smarty;

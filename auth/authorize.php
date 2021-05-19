@@ -8,7 +8,10 @@ require_once __DIR__ . '/../classes/Sessions.php';
 require_once __DIR__ . '/../classes/User.php';
 require_once __DIR__ . '/PasswordHash.php';
 
-session_start();
+if ( ! session_status() ) {
+    session_start();
+}
+
 $cUser = new User();
 $passHash = new PasswordHash( 8, false );
 
