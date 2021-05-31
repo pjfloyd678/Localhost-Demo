@@ -40,6 +40,9 @@
                         <a class="nav-link" href="/info.php" id="view-info" data-view="default" target="_blank">Info</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/random.php" id="view-random" data-view="default" target="_blank">Random</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/xml" id="view-xml" data-view="default">XML</a>
                     </li>
                     <li class="nav-item">
