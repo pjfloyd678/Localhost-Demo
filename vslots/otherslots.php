@@ -2,10 +2,10 @@
 switch($playSlot){
 	case 1:
 		$vslot->virtualStops = 128;
-		$vslot->reel = '';
-		$vslot->vmap = '';
-		$vslot->weight = '';
-		$vslot->payout = '';
+		// $vslot->reel = '';
+		// $vslot->vmap = '';
+		// $vslot->weight = '';
+		// $vslot->payout = '';
 		
 		$vslot->addStop(0,0,1,20);
 		$vslot->addStop(0,1,0,3);
@@ -102,10 +102,10 @@ switch($playSlot){
 		break;
 	case 2:
 		$vslot->virtualStops = 64;
-		$vslot->reel = '';
-		$vslot->vmap = '';
-		$vslot->weight = '';
-		$vslot->payout = '';
+		// $vslot->reel = '';
+		// $vslot->vmap = '';
+		// $vslot->weight = '';
+		// $vslot->payout = '';
 		
 		$vslot->addStop(0,0,6,3);
 		$vslot->addStop(0,1,7,3);
@@ -198,11 +198,11 @@ switch($playSlot){
 		
 		break;
 	case 3:
-		$vslot->virtualStops = 64;
-		$vslot->reel = '';
-		$vslot->vmap = '';
-		$vslot->weight = '';
-		$vslot->payout = '';
+		$vslot->virtualStops = 24;
+		// $vslot->reel = '';
+		// $vslot->vmap = '';
+		// $vslot->weight = '';
+		// $vslot->payout = '';
 		
 		$vslot->addStop(0,0,14,3);
 		$vslot->addStop(0,1,0,3);

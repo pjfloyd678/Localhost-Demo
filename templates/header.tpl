@@ -34,9 +34,6 @@
                         <a class="nav-link" href="/jquery_recaptcha/index.php">Recaptcha</a>
                     </li>
                     <li class="nav-item">
-                        <span class="showdate">{if $loggedin }<a href="/auth/logout.php">Logout</a>{else}<a href="/auth/login.php">Login</a>{/if}</span>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/info.php" id="view-info" data-view="default" target="_blank">Info</a>
                     </li>
                     <li class="nav-item">
@@ -47,6 +44,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" id="view" data-view="default">View</a>
+                    </li>
+                    <li class="nav-item">
+                        <span class="showdate">{if $loggedin }<a href="/auth/logout.php">Logout</a>{else}<a href="/auth/login.php">Login</a>{/if}</span>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
