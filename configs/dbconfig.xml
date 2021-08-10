@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
-    <dbname>test</dbname>
-    <username>root</username>
-    <password>hgttg42</password>
-    <host>localhost</host>
-    <port>3306</port>
-    <tablename>sites</tablename>
+  <dbname>testing</dbname>
+  <username>root</username>
+  <password>hgttg42</password>
+  <host>localhost</host>
+  <port>3306</port>
+  <tablename>sites</tablename>
 </root>

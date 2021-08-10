@@ -8,7 +8,7 @@ define( "TEMPLATES_DIR", SITE_ROOT.'/templates' );
 define( "TEMPLATES_ADMIN_DIR", SITE_ROOT.'/templates/_admin' );
 define( "TEMP_DIR", SITE_TOP . '/dynamic/templates_c/' );
 define( "HTDOCS_PATH", SITE_ROOT.'/' );
-define( "HTTPHOSTNAME", 'http://localost' );
+define( "HTTPHOSTNAME", '[[HTTPHOST]]' );
 define( "DBCONFGFILE" , CONFIG_DIR . "/dbconfig.xml" );
 
 require_once( __DIR__ . '/../smarty/libs/Smarty.class.php' );

@@ -5,6 +5,7 @@ error_reporting( E_ALL );
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/configs/application_config.php';
 
+$smarty->assign( 'title', "Localhost Links" );
 if ( empty( $_SESSION ) || !Sessions::isLoggedIn() ) {
     $smarty->assign( 'loggedin', false );
     $smarty->display( 'auth/login.tpl' );

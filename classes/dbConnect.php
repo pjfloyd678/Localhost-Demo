@@ -16,6 +16,7 @@ class dbConnect {
     public $hostname;
     public $dbport;
     public $tablename;
+
     public $pdodb;
     
     static $userTable = "user";
@@ -26,8 +27,12 @@ class dbConnect {
         }
     }
     
-    private function connect() {
-        $mysqli = new mysqli($this->hostname, $this->username, $this->password, $this->dbname, (int) $this->dbport);
+    private function connect( $connectToDB = true ) {
+        if ( $connectToDB ) {
+            $mysqli = new mysqli($this->hostname, $this->username, $this->password, $this->dbname, (int) $this->dbport);
+        } else {
+            $mysqli = new mysqli( $this->hostname, $this->username, $this->password );
+        }
         
         if ($mysqli->connect_error) {
             die("Connection Failed: " . $mysqli->connect_errno);
@@ -44,14 +49,22 @@ class dbConnect {
             die();
         }
     }
+
+    public function doQuery( $query, $connectToDB = true ) {
+        $result = $this->executeQuery( $query, $connectToDB );
+        if ( $result[ 'code' ] === 200 ) {
+            return true;
+        }
+        return false;
+    }
     
-    private function executeQuery($query) {
+    private function executeQuery($query, $connectToDB = true ) {
         $dataSet = [
             'code' => 0,
             'response' => []
         ];
         
-        $connect = $this->connect();
+        $connect = $this->connect( $connectToDB, $connectToDB );
         $dbCommand = mysqli_query($connect, $query);
         
         if (!$dbCommand) {

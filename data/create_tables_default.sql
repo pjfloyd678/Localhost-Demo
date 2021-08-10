@@ -1,14 +1,14 @@
-create database if not exists testing;
-use testing;
+create database if not exists [[DBNAME]];
+use [[DBNAME]];
 --
 -- Table structure for table `user`
 --
-DROP TABLE IF EXISTS `sites`;
-CREATE TABLE IF NOT EXISTS `sites` ( `websiteID` int(11) NOT NULL AUTO_INCREMENT, `websiteText` varchar(255) NOT NULL, `websiteURL` varchar(255) NOT NULL, `websiteSort` int(11) DEFAULT '0', PRIMARY KEY (`websiteID`)) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `[[TABLENAME]]`;
+CREATE TABLE IF NOT EXISTS `[[TABLENAME]]` ( `websiteID` int(11) NOT NULL AUTO_INCREMENT, `websiteText` varchar(255) NOT NULL, `websiteURL` varchar(255) NOT NULL, `websiteSort` int(11) DEFAULT '0', PRIMARY KEY (`websiteID`)) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=latin1;
 --
 -- Dumping data for table `sites`
 --
-INSERT INTO `sites` (`websiteText`, `websiteURL`, `websiteSort`) VALUES ('Google CA', 'https%3A%2F%2Fwww.google.ca%2F', 100);
+INSERT INTO `[[TABLENAME]]` (`websiteText`, `websiteURL`, `websiteSort`) VALUES ('Google CA', 'https%3A%2F%2Fwww.google.ca%2F', 100);
 --
 -- Table structure for table `user`
 --
