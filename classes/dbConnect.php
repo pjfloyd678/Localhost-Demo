@@ -33,16 +33,16 @@ class dbConnect {
         } else {
             $mysqli = new mysqli( $this->hostname, $this->username, $this->password );
         }
-        
         if ($mysqli->connect_error) {
-            die("Connection Failed: " . $mysqli->connect_errno);
+            die('Connect Error (' . $mysqli->connect_errno . ') '
+                    . $mysqli->connect_error);
         }
         return $mysqli;
     }
     
     private function pdo_connect() {
         try {
-            $pdodb = new PDO( "mysql:host=" . $this->hostname . ";dbname=test", $this->username, $this->password );
+            $pdodb = new PDO( "mysql:host=" . $this->hostname . ";dbname=" . $this->dbname, $this->username, $this->password );
             return $pdodb;
         } catch (PDOException $e) {
             print "Error!: " . $e->getMessage() . "<br/>";
@@ -50,38 +50,37 @@ class dbConnect {
         }
     }
 
-    public function doQuery( $query, $connectToDB = true ) {
-        $result = $this->executeQuery( $query, $connectToDB );
+    public function doQuery( $query ) {
+        $result = $this->executeQuery( $query );
         if ( $result[ 'code' ] === 200 ) {
             return true;
         }
         return false;
     }
     
-    private function executeQuery($query, $connectToDB = true ) {
+    public function executeQuery( $query ) {
         $dataSet = [
             'code' => 0,
             'response' => []
         ];
         
-        $connect = $this->connect( $connectToDB, $connectToDB );
-        $dbCommand = mysqli_query($connect, $query);
-        
-        if (!$dbCommand) {
-            var_dump(mysqli_errno($connect));
-            var_dump(mysqli_error($connect));
-            $dataSet['code'] = mysqli_errno($connect);
-            $dataSet['response'] = mysqli_error($connect);
-            $connect->close();
-            return $dataSet;
-        }
-        if (is_array($dbCommand) || is_object($dbCommand)) {
-            $result = mysqli_fetch_all($dbCommand, MYSQLI_ASSOC);
+        $pdb     = $this->pdo_connect();
+        $query   = $pdb->prepare( $query );
+        $query->execute();
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if ( $query->errorCode() !== "00000" ) {
+            if ( $query->errorCode() !== "HY000" ) {
+                $dataSet = $this->reply( $query->errorCode(), $query->errorInfo() );
+            } else {
+                $dataSet = $this->reply( 200, true );
+            }
         } else {
-            $result = $dbCommand;
+            if ( $query->rowCount() > 0 || count( $results ) > 0 ) {
+                $dataSet = $this->reply( 200, $results );
+            } else {
+                $dataSet = $this->reply( 200, true );
+            }
         }
-        $dataSet = $this->reply( 200, $result );
-        $connect->close();
         return $dataSet;
     }
 

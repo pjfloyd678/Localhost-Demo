@@ -6,7 +6,10 @@
             <div class="col-sm-8"><h2>Install Localhost Links</h2></div>
             <div class="col-sm-12">
                 <form action="/setup.php" method="post" id="save-data">
-                    <div><h3>Database Information</h3></div>
+                    <div>
+                        <h3>Database Information</h3>
+                        <p></p>
+                    </div>
                     <div class="form-group">
                         <label for="dbname">Database Name:
                         <input type="text" class="form-control" name="dbname" id="dbname" placeholder="" required></label>
@@ -33,8 +36,8 @@
                     </div>
                     <div><h3>Site Information</h3></div>
                     <div class="form-group">
-                        <label for="httphost">Database Name:
-                        <input type="text" class="form-control" name="httphost" id="httphost" value="http://localost" required></label>
+                        <label for="httphost">Site URL:
+                        <input type="text" class="form-control" name="httphost" id="httphost" value="http://localhost" required></label>
                     </div>
                     <div class="form-group">
                         <label for="username">Site User/Email Address:

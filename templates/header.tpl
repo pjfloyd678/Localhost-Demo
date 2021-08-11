@@ -31,19 +31,7 @@
                         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/jquery_recaptcha/index.php">Recaptcha</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/info.php" id="view-info" data-view="default" target="_blank">Info</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/random.php" id="view-random" data-view="default" target="_blank">Random</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/xml" id="view-xml" data-view="default">XML</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="view" data-view="default">View</a>
                     </li>
                     <li class="nav-item">
                         <span class="showdate">{if $loggedin }<a href="/auth/logout.php">Logout</a>{else}<a href="/auth/login.php">Login</a>{/if}</span>

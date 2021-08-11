@@ -114,6 +114,70 @@ class Setup {
         return true;
     }
 
+    public function createTables() {
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/configs/application_config.php';
+
+        $dbConnect = new dbConnect( DBCONFGFILE );
+
+        $query = "DROP TABLE IF EXISTS `[[DBNAME]]`.`[[TABLENAME]]`;";
+        $findDB = '[[DBNAME]]';
+        $query = str_replace( $findDB, $this->dbname, $query );
+        $findTable = '[[TABLENAME]]';
+        $query = str_replace( $findTable, $this->tablename, $query );
+        $results = $dbConnect->executeQuery( $query );
+        if ( $results[ 'code' ] !== 200 ) {
+            var_dump( $results[ 'code' ] );
+            var_dump( $results[ 'response' ] );
+            die(-1);
+        }
+
+        $query = "CREATE TABLE IF NOT EXISTS `[[DBNAME]]`.`[[TABLENAME]]` ( `websiteID` int(11) NOT NULL AUTO_INCREMENT, `websiteText` varchar(255) NOT NULL, `websiteURL` varchar(255) NOT NULL, `websiteSort` int(11) DEFAULT '0', PRIMARY KEY (`websiteID`)) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=latin1;";
+        $findDB = '[[DBNAME]]';
+        $query = str_replace( $findDB, $this->dbname, $query );
+        $findTable = '[[TABLENAME]]';
+        $query = str_replace( $findTable, $this->tablename, $query );
+        $results = $dbConnect->executeQuery( $query );
+        if ( $results[ 'code' ] !== 200 ) {
+            var_dump( $results[ 'code' ] );
+            var_dump( $results[ 'response' ] );
+            die(-1);
+        }
+        
+        $query = "INSERT INTO `[[DBNAME]]`.`[[TABLENAME]]` (`websiteText`, `websiteURL`, `websiteSort`) VALUES ('Google CA', 'https%3A%2F%2Fwww.google.ca%2F', 100);";
+        $findDB = '[[DBNAME]]';
+        $query = str_replace( $findDB, $this->dbname, $query );
+        $findTable = '[[TABLENAME]]';
+        $query = str_replace( $findTable, $this->tablename, $query );
+        $results = $dbConnect->executeQuery( $query );
+        if ( $results[ 'code' ] !== 200 ) {
+            var_dump( $results[ 'code' ] );
+            var_dump( $results[ 'response' ] );
+            die(-1);
+        }
+        
+        $query = "DROP TABLE IF EXISTS `[[DBNAME]]`.`user`;";
+        $findDB = '[[DBNAME]]';
+        $query = str_replace( $findDB, $this->dbname, $query );
+        $results = $dbConnect->executeQuery( $query );
+        if ( $results[ 'code' ] !== 200 ) {
+            var_dump( $results[ 'code' ] );
+            var_dump( $results[ 'response' ] );
+            die(-1);
+        }
+        
+        $query = "CREATE TABLE IF NOT EXISTS `[[DBNAME]]`.`user` ( `id` int(10) NOT NULL AUTO_INCREMENT, `emailaddress` varchar(255) NOT NULL, `password` varchar(255) NOT NULL, `firstname` varchar(128) NOT NULL, `lastname` varchar(128) NOT NULL, `adminuser` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`), UNIQUE KEY `emailaddress` (`emailaddress`) ) ENGINE=InnoDB AUTO_INCREMENT=12010 DEFAULT CHARSET=latin1;";
+        $findDB = '[[DBNAME]]';
+        $query = str_replace( $findDB, $this->dbname, $query );
+        $results = $dbConnect->executeQuery( $query );
+        if ( $results[ 'code' ] !== 200 ) {
+            var_dump( $results[ 'code' ] );
+            var_dump( $results[ 'response' ] );
+            die(-1);
+        }
+
+        return true;
+    }
+
     public function executeSQL() {
         $sqlFile = __DIR__ . "/../data/create_tables.sql";
         $result = $this->run_sql_file( $sqlFile );
@@ -127,7 +191,7 @@ class Setup {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/configs/application_config.php';
 
         // Connect to DB
-        $dbConnect = new dbConnect( DBCONFGFILE, false );
+        $dbConnect = new dbConnect( DBCONFGFILE );
 
         //load file
         $commands = file_get_contents( $location );
@@ -149,7 +213,7 @@ class Setup {
         $total = $success = 0;
         foreach( $commands as $command ) {
             if( trim( $command ) ) {
-                $success += ( $dbConnect->doQuery( $command, false ) === false ? 0 : 1 );
+                $success += ( $dbConnect->doQuery( $command ) === false ? 0 : 1 );
                 $total += 1;
             }
         }

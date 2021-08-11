@@ -1,5 +1,5 @@
 {config_load file="test.conf" section="setup"}
-{include file="header.tpl" title=foo}
+{include file="header.tpl" title="Localhost Links"}
 
 <div class="container">
     <hr style="padding: 4px;"/>

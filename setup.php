@@ -35,11 +35,9 @@ $success = false;
 $setup->setData( $arrayData );
 $setup->saveXMLFile();
 if ( $setup->updateApplicationConfig( $httphost ) ) {
-    if ( $setup->updateSQLfile( __DIR__ . "/data/create_tables.sql" ) ) {
-        if ( $setup->executeSQL() ) {
-            if ( $setup->addUser( $email, $sitepass ) ) {
-                $success = true;
-            }
+    if ( $setup->createTables() ) {
+        if ( $setup->addUser( $email, $sitepass ) ) {
+            $success = true;
         }
     }
 }
