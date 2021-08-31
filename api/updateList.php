@@ -3,8 +3,7 @@ ini_set( 'display_errors',         1 );
 ini_set( 'display_startup_errors', 1 );
 error_reporting( E_ALL );
 
-include_once '../classes/dbConnect.php';
-$db = new dbConnect();
+include_once '../db/dbConnect.php';
 
 $response = [
     'code' => 501,
@@ -21,7 +20,7 @@ $order = explode(",", $sub );
 $success = TRUE;
 $ctr = 1;
 foreach ( $order as $item => $value) {
-    $result = $db->updateData( strval($value), 'websiteSort', ( $ctr * 10 ) );
+    $result = updateData( strval($value), 'websiteSort', ( $ctr * 10 ) );
     if ( $result[ 'response' ] !== TRUE ) {
         $success = FALSE;
         break;

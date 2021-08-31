@@ -11,10 +11,9 @@ define( "HTDOCS_PATH", SITE_ROOT.'/' );
 define( "HTTPHOSTNAME", 'http://localhost' );
 define( "DBCONFGFILE" , CONFIG_DIR . "/dbconfig.xml" );
 
-require_once( __DIR__ . '/../smarty/libs/Smarty.class.php' );
-require_once $_SERVER['DOCUMENT_ROOT'] . '/classes/dbConnect.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/classes/Sessions.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/smarty/libs/Smarty.class.php';
+include( __DIR__ . '/../smarty/libs/Smarty.class.php' );
+include( $_SERVER['DOCUMENT_ROOT'] . '/db/dbConnect.php' );
+include( $_SERVER['DOCUMENT_ROOT'] . '/session/Sessions.php' );
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -23,8 +22,6 @@ if (session_status() === PHP_SESSION_NONE) {
 $smarty = new Smarty();
 $smarty->setTemplateDir( $_SERVER[ 'DOCUMENT_ROOT' ] . '/templates/' );
 $smarty->setConfigDir( $_SERVER[ 'DOCUMENT_ROOT' ] . '/configs/' );
-
-$dbConnect = new DBConnect( DBCONFGFILE );
 
 function smartyDisplay( $t, $s=NULL ) {
     global $smarty;

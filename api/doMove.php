@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include_once '../classes/dbConnect.php';
+include_once '../db/dbConnect.php';
 
 $response = [
     'code' => 501,
@@ -26,14 +26,13 @@ if ($id === '' || $sort === '' || $direction === '') {
 //All data is here --> continue!
 $originalSort = intval($sort);
 //Connect to DB
-$dbConnect = new dbConnect();
 
 if ($direction === "UP") {
     $checkSort = $originalSort - 10;
 } else {
     $checkSort = $originalSort + 10;    
 }
-$oldQuery = (array) $dbConnect->getRowByWhere("websiteSort", $checkSort);
+$oldQuery = (array) getRowByWhere("websiteSort", $checkSort);
 if (intval($oldQuery['code']) !== 200) {
     $response['code'] = $oldQuery['code'];
     $response['message'] = "Error occurred with initial query.";
@@ -43,7 +42,7 @@ if (intval($oldQuery['code']) !== 200) {
 $oldID = intval($oldQuery['response'][0]['websiteID']);
 
 //Get the original record that will be replaced
-$oldResult = (array) $dbConnect->updateData($oldID, "websiteSort", $sort);
+$oldResult = (array) updateData($oldID, "websiteSort", $sort);
 if (intval($oldResult['code']) !== 200) {
     $response['code'] = $oldQuery['code'];
     $response['message'] = "Error occurred with initial switch.";
@@ -51,7 +50,7 @@ if (intval($oldResult['code']) !== 200) {
     exit();
 }
 //Do the final update
-$result = (array) $dbConnect->updateData($id, "websiteSort", $checkSort);
+$result = (array) updateData($id, "websiteSort", $checkSort);
 if (intval($result['code']) !== 200) {
     $response['code'] = $oldQuery['code'];
     $response['message'] = "Error occurred with final switch.";

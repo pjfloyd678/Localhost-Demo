@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include_once '../classes/dbConnect.php';
+include_once '../db/dbConnect.php';
 
 $response = [
     'code' => 501,
@@ -21,15 +21,14 @@ if ($text === '' || $url === '') {
     echo json_encode($response);
     exit();
 }
-$dbConnect = new dbConnect();
-$result = (array) $dbConnect->saveData($text, $url);
+$result = (array) saveData($text, $url);
 if (!$result) {
     $response['code'] = 503;
     $response['message'] = "Error saving record";
     echo json_encode($response);
     exit();
 }
-$queryNewRecord = (array) $dbConnect->getRowByWhere("websiteSort", 0);
+$queryNewRecord = (array) getRowByWhere("websiteSort", 0);
 if (!$queryNewRecord) {
     $response['code'] = 504;
     $response['message'] = "Error getting post record";
@@ -37,7 +36,7 @@ if (!$queryNewRecord) {
     exit();
 }
 
-$queryMax = (array) $dbConnect->getMax();
+$queryMax = (array) getMax();
 if (!$queryMax) {
     $response['code'] = 504;
     $response['message'] = "Error getting max";
@@ -47,7 +46,7 @@ if (!$queryMax) {
 $max = intval($queryMax['response'][0]['max']);
 $id = $queryNewRecord['response'][0]['websiteID'];
 
-$updateRecord = (array) $dbConnect->updateData($id, "websiteSort", ($max+10));
+$updateRecord = (array) updateData($id, "websiteSort", ($max+10));
 if (!$updateRecord) {
     $response['code'] = 505;
     $response['message'] = "Error completing final query";

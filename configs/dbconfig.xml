@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <dbname>testing</dbname>
-  <username>root</username>
-  <password>hgttg42</password>
+  <dbname>localhost</dbname>
+  <username>localhost</username>
+  <password>qXjyc$FEN2E3k%9v</password>
   <host>localhost</host>
   <port>3306</port>
   <tablename>sites</tablename>

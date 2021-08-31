@@ -34,6 +34,9 @@
                         <a class="nav-link" href="/info.php" id="view-info" data-view="default" target="_blank">Info</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="http://localhost/phpmyadmin/" id="view-info" data-view="default" target="_blank">PHPMyAdmin</a>
+                    </li>
+                    <li class="nav-item">
                         <span class="showdate">{if $loggedin }<a href="/auth/logout.php">Logout</a>{else}<a href="/auth/login.php">Login</a>{/if}</span>
                     </li>
                 </ul>

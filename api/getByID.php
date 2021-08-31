@@ -3,7 +3,7 @@ ini_set( 'display_errors',         1 );
 ini_set( 'display_startup_errors', 1 );
 error_reporting( E_ALL );
 
-include_once '../classes/dbConnect.php';
+include_once '../db/dbConnect.php';
 
 $response = [
     'code' => 501,
@@ -20,8 +20,7 @@ if ( $id === '' ) {
     echo json_encode( $response );
     exit();
 }
-$dbConnect = new dbConnect();
-$result = ( array ) $dbConnect->getRowByID( $id ); 
+$result = ( array ) getRowByID( $id ); 
 $response[ 'code' ]    = 200;
 $response[ 'message' ] = 'Success';
 $response[ 'data' ]    = $result;

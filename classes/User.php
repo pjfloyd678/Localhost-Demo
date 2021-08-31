@@ -7,52 +7,45 @@
  */
 
 require_once __DIR__ . '/../configs/application_config.php';
-require_once __DIR__ . '/../classes/dbConnect.php';
+require_once __DIR__ . '/../db/dbConnect.php';
 
 class User {
     
     public function get( $id = 0 ) {
-        $db = new dbConnect();
         if ( $id > 0 ) {
-            return $db->getUser( $id );
+            return getUser( $id );
         } else {
-            return $db->getAllUsers();
+            return getAllUsers();
         }
     }
 
     public function getByEmail( $emailAddress ) {
-        $db     = new dbConnect();
-        $result = $db->getUserByEmail( $emailAddress );
+        $result = getUserByEmail( $emailAddress );
         return $result;
     }
 
     public function login( $emailAddress, $password ) {
-        $db     = new dbConnect();
-        $result = $db->doLogin( $emailAddress, $password );
+        $result = doLogin( $emailAddress, $password );
         return $result;
     }
 
     public function getAll() {
-        $db = new dbConnect();
-        $result = $db->getAllUsers();
+        $result = getAllUsers();
         return $result;
     }
     
     public function update( $id, $updateData ) {
-        $db = new dbConnect();
-        $result = $db->updateAll( $id, $updateData );
+        $result = updateAll( $id, $updateData );
         return $result;
     }
 
     public function create( $data ) {
-        $db = new dbConnect();
-        $user = $db->createUser( $data );
+        $user = createUser( $data );
         return $user;
     }
     
     public function delete( $id ) {
-        $db = new dbConnect();
-        $result = $db->deleteUser( $id );
+        $result = deleteUser( $id );
         return $result;
     }
 }

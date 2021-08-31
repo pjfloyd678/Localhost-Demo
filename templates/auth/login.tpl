@@ -1,4 +1,4 @@
-{include file="header.tpl" title=foo}
+{include file="header.tpl" title="Localhost"}
 
 <div class="container">
     <hr style="padding: 4px;" />
