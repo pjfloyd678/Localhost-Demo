@@ -5,3 +5,4 @@
 /vendor/
 /xml/templates_c/
 /auth/templates_c/
+/uploads/*.png
