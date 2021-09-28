@@ -1,8 +1,5 @@
-/templates_c/
-/jquery_recaptcha/templates_c/
 /.vscode/
 /configs/insert_my_values.sql
 /vendor/
-/xml/templates_c/
-/auth/templates_c/
 /uploads/*.png
+**/templates_c/
