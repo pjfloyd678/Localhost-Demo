@@ -4,7 +4,7 @@ ini_set( 'display_startup_errors', 1 );
 error_reporting( E_ALL );
 
 require_once __DIR__ . '/../configs/application_config.php';
-require_once __DIR__ . '/../classes/Sessions.php';
+require_once __DIR__ . '/../session/Sessions.php';
 require_once __DIR__ . '/../classes/User.php';
 require_once __DIR__ . '/PasswordHash.php';
 
@@ -35,7 +35,7 @@ if ( !empty( $_POST ) ) {
         }
         // Valid Email and Password - Continue
         $_SESSION[ 'loggedIn' ] = true;
-        Sessions::redirect("index.php");
+        redirect("index.php");
         exit();
     }
 }

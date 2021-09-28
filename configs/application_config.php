@@ -8,12 +8,12 @@ define( "TEMPLATES_DIR", SITE_ROOT.'/templates' );
 define( "TEMPLATES_ADMIN_DIR", SITE_ROOT.'/templates/_admin' );
 define( "TEMP_DIR", SITE_TOP . '/dynamic/templates_c/' );
 define( "HTDOCS_PATH", SITE_ROOT.'/' );
-define( "HTTPHOSTNAME", 'http://localhost' );
+define( "HTTPHOSTNAME", 'http://my-localhost.com/' );
 define( "DBCONFGFILE" , CONFIG_DIR . "/dbconfig.xml" );
 
-include( __DIR__ . '/../smarty/libs/Smarty.class.php' );
-include( $_SERVER['DOCUMENT_ROOT'] . '/db/dbConnect.php' );
-include( $_SERVER['DOCUMENT_ROOT'] . '/session/Sessions.php' );
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/dbConnect.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/session/Sessions.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/smarty/libs/Smarty.class.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();

@@ -12,8 +12,8 @@ define( "HTTPHOSTNAME", '[[HTTPHOST]]' );
 define( "DBCONFGFILE" , CONFIG_DIR . "/dbconfig.xml" );
 
 require_once( __DIR__ . '/../smarty/libs/Smarty.class.php' );
-require_once $_SERVER['DOCUMENT_ROOT'] . '/classes/dbConnect.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/classes/Sessions.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/dbConnect.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/session/Sessions.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/smarty/libs/Smarty.class.php';
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -53,4 +53,15 @@ function display( $code, $response, $json = false ) {
         exit(0);
     }
     return $data;
+}
+
+function isLoggedIn() {
+    if ( empty( $_SESSION[ 'loggedIn' ] ) ) {
+        return false;
+    }
+    return true;
+}
+    
+function redirect( $url ) {
+    header( "Location: " . HTTPHOSTNAME . "/" . $url );
 }
