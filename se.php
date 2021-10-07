@@ -1,6 +1,6 @@
 <?php
 
-$to = "peter@mortgageautomator.com";
+$to = "peter@mylocalhost.com";
 $subject = "Test HTML email";
 
 $message = "
