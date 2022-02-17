@@ -1,19 +1,26 @@
 <?php
 
-define( "SITE_ROOT", $_SERVER['DOCUMENT_ROOT'] );
-define( "CODE_DIR", dirname( $_SERVER['DOCUMENT_ROOT'] ) );
+if ( $_SERVER['DOCUMENT_ROOT'] === '' ) {
+    // This is needed when running PHP Unit Tests. There is no $_SERVER!
+    define( "SERVER_ROOT", __DIR__ . "/../" );
+} else {
+    define( "SERVER_ROOT", $_SERVER['DOCUMENT_ROOT'] );
+}
+define( "SITE_ROOT", SERVER_ROOT );
+define( "CODE_DIR", dirname( SERVER_ROOT ) );
 define( "SITE_TOP", dirname( CODE_DIR ) );
 define( "CONFIG_DIR", SITE_ROOT . '/configs' );
 define( "TEMPLATES_DIR", SITE_ROOT.'/templates' );
 define( "TEMPLATES_ADMIN_DIR", SITE_ROOT.'/templates/_admin' );
 define( "TEMP_DIR", SITE_TOP . '/dynamic/templates_c/' );
 define( "HTDOCS_PATH", SITE_ROOT.'/' );
-define( "HTTPHOSTNAME", 'http://my-localhost.com/' );
+define( "HTTPHOSTNAME", 'http://localhost' );
 define( "DBCONFGFILE" , CONFIG_DIR . "/dbconfig.xml" );
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/db/dbConnect.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/session/Sessions.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/smarty/libs/Smarty.class.php';
+require_once( __DIR__ . '/../smarty/libs/Smarty.class.php' );
+require_once SITE_ROOT . '/db/dbConnect.php';
+require_once SITE_ROOT . '/db/sql.php';
+require_once SITE_ROOT . '/smarty/libs/Smarty.class.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -50,4 +57,15 @@ function display( $code, $response, $json = false ) {
         exit(0);
     }
     return $data;
+}
+
+function isLoggedIn() {
+    if ( empty( $_SESSION[ 'loggedIn' ] ) ) {
+        return false;
+    }
+    return true;
+}
+    
+function redirect( $url ) {
+    header( "Location: " . HTTPHOSTNAME . "/" . $url );
 }

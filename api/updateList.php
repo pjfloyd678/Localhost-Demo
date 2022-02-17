@@ -22,8 +22,10 @@ $ctr = 1;
 foreach ( $order as $item => $value) {
     $result = updateData( strval($value), 'websiteSort', ( $ctr * 10 ) );
     if ( $result[ 'response' ] !== TRUE ) {
-        $success = FALSE;
-        break;
+        if ( count( $result[ 'response' ] ) > 0 ) {
+            $success = FALSE;
+            break;
+        }
     }
     $ctr++;
 }

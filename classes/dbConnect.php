@@ -1,6 +1,6 @@
 <?php
 
-define( "DBFILENAME", __DIR__ . "\..\configs\dbconfig.xml" );
+defined( "DBFILENAME") or define( "DBFILENAME", __DIR__ . "\..\configs\dbconfig.xml" ); 
 require_once __DIR__ . '/../auth/PasswordHash.php';
 
 /**
@@ -253,12 +253,12 @@ class dbConnect {
             return false;
         }
         $xml=simplexml_load_file( $filename );
-        $this->dbname = $xml->dbname;
-        $this->username = $xml->username;
-        $this->password = $xml->password;
-        $this->hostname = $xml->host;
-        $this->dbport = $xml->port;
-        $this->tablename = $xml->tablename;
+        $this->dbname = (string) $xml->dbname;
+        $this->username = (string) $xml->username;
+        $this->password = (string) $xml->password;
+        $this->hostname = (string) $xml->host;
+        $this->dbport = (int) $xml->port;
+        $this->tablename = (string) $xml->tablename;
         return true;
     }
 

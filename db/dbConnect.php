@@ -1,6 +1,8 @@
 <?php
 
-define( "DBFILENAME", __DIR__ . "\..\configs\dbconfig.xml" );
+global $dbname, $username, $password, $hostname, $dbport, $tablename;
+
+defined( "DBFILENAME") or define( "DBFILENAME", __DIR__ . "\..\configs\dbconfig.xml" ); 
 
 require_once __DIR__ . '/../auth/PasswordHash.php';
 include 'sql.php';

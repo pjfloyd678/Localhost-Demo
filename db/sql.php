@@ -62,20 +62,22 @@ function doLogin( $emailAddress, $password ) {
     $pdb        = pdo_connect();
     $hashedPass = $passHash->HashPassword( $password );
     
-    $checkQuery ="SELECT * FROM " . $userTable . " where (emailaddress=:email) and (password=:hpass)";
+    $checkQuery ="SELECT * FROM " . $userTable . " where (emailaddress=:email)";
     $query      = $pdb -> prepare( $checkQuery );
     $query->bindParam(':email',$emailAddress, PDO::PARAM_STR);
-    $query->bindParam(':hpass',$hashedPass,   PDO::PARAM_STR);
     $query->execute();
     $dataSet    = [];
-    $results    = $query->fetchAll( PDO::FETCH_OBJ );
     if( $query->rowCount() > 0 ) {
-        $res    = $query->fetch();
-        if ( !$passHash->CheckPassword( $password, $res[ 'password' ] ) ) {
-            $dataSet = reply( 200, array() );
+        //$res    = $query->fetch();
+        $res    = $query->fetchAll( PDO::FETCH_ASSOC );
+        $dbPass = (string) $res[0][ 'password' ];
+        if ( !$passHash->CheckPassword( $password, $dbPass ) ) {
+            $dataSet = reply( 400, array() );
         } else {
             $dataSet = reply( 200, $res );
         }
+    } else {
+        $dataSet = reply( 400, "Password doesn't match!" );
     }
     return $dataSet;
 }
