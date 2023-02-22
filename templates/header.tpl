@@ -34,6 +34,9 @@
                         <a class="nav-link" href="/info.php" id="view-info" data-view="default" target="_blank">Info</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/jquery-ui/" id="view-info" data-view="default" target="_blank">Jquery UI</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="http://localhost/phpmyadmin/" id="view-info" data-view="default" target="_blank">PHPMyAdmin</a>
                     </li>
                     <li class="nav-item">

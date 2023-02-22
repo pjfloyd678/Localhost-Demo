@@ -34,6 +34,8 @@ if ( !empty( $_POST ) ) {
         }
         // Valid Email and Password - Continue
         $_SESSION[ 'loggedIn' ] = true;
+        $token = uniqid();
+        $_SESSION[ 'token' ]    = $token;
         redirect("index.php");
         exit();
     }

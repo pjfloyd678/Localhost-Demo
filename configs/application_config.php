@@ -16,6 +16,7 @@ define( "TEMP_DIR", SITE_TOP . '/dynamic/templates_c/' );
 define( "HTDOCS_PATH", SITE_ROOT.'/' );
 define( "HTTPHOSTNAME", 'http://localhost' );
 define( "DBCONFGFILE" , CONFIG_DIR . "/dbconfig.xml" );
+define( "DBPORT", 3306 );
 
 require_once( __DIR__ . '/../smarty/libs/Smarty.class.php' );
 require_once SITE_ROOT . '/db/dbConnect.php';

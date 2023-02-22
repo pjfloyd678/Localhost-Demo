@@ -4,3 +4,7 @@
 /uploads/*.png
 **/templates_c/
 .phpunit.result.cache
+/logs/
+/auth_test/
+/aws/
+/.aws/

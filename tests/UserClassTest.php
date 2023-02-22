@@ -1,10 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
-
 require_once (__DIR__ . '\..\classes\User.php');
 
-class UserClassTest extends TestCase {
+class UserClassTest extends PHPUnit\Framework\TestCase {
 
     /**
      * testUser()

@@ -7,3 +7,15 @@
   <port>3306</port>
   <tablename>sites</tablename>
 </root>
+
+<!--
+  <root>
+  <dbname>sanofi_ontrack_dev</dbname>
+  <username>!Sanofi_OnTRACK!</username>
+  <password>*!Sanofi_0NTrack_DBUser*</password>
+  <host>localhost</host>
+  <port>3306</port>
+  <tablename>data_treatment</tablename>
+</root>
+
+-->

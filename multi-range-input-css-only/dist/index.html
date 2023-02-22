@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Multi Range input, CSS-only </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!-- most basic, used for Knobs demo -->
+<!-- <div class="range-slider" style='--min:0; --max:10; --step:1; --value:5; --text-value:"5";'>
+  <input type="range" min="0" max="10" step="1" value="5" 
+      oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify(this.value))">
+  <output></output>
+  <div class='range-slider__progress'></div>
+</div> -->
+
+<div>
+
+  <style>
+    .checkboxgroup{
+        display:inline-block;
+        text-align:center;
+        vertical-align: top;
+    }
+    .checkboxgroup label {
+        display:block;
+    }
+  </style>
+  <div id="checkboxes">
+      <div class="checkboxgroup">
+        <label for="my_radio_button_id1" style="text-align: right;">None
+          <input type="radio" name="radio" id="my_radio_button_id1" />
+        </label>
+      </div>
+      <div class="checkboxgroup" style="text-align: right !important;">
+          <input type="radio" name="radio" id="my_radio_button_id2" />
+          <label for="my_radio_button_id2">Very Little</label>
+      </div>
+      <div class="checkboxgroup">
+          <input type="radio" name="radio" id="my_radio_button_id3" />
+          <label for="my_radio_button_id3">1</label>
+      </div>
+      <div class="checkboxgroup">
+          <input type="radio" name="radio" id="my_radio_button_id4" />
+          <label for="my_radio_button_id4">2</label>
+      </div>
+      <div class="checkboxgroup">
+          <input type="radio" name="radio" id="my_radio_button_id5" />
+          <label for="my_radio_button_id5">3</label>
+      </div>
+      <div class="checkboxgroup">
+        <input type="radio" name="radio" id="my_radio_button_id3" />
+        <label for="my_radio_button_id3">1</label>
+      </div>
+      <div class="checkboxgroup">
+          <input type="radio" name="radio" id="my_radio_button_id4" />
+          <label for="my_radio_button_id4">2</label>
+      </div>
+      <div class="checkboxgroup">
+          <input type="radio" name="radio" id="my_radio_button_id5" />
+          <label for="my_radio_button_id5">3</label>
+      </div>
+      <div class="checkboxgroup">
+        <input type="radio" name="radio" id="my_radio_button_id3" />
+        <label for="my_radio_button_id3">1</label>
+      </div>
+      <div class="checkboxgroup">
+          <input type="radio" name="radio" id="my_radio_button_id4" />
+          <label for="my_radio_button_id4">2</label>
+      </div>
+      <div class="checkboxgroup">
+          <input type="radio" name="radio" id="my_radio_button_id5" />
+          <label for="my_radio_button_id5">3</label>
+      </div>
+      <div class="checkboxgroup" style="text-align: left !important;">
+          <input type="radio" name="radio" id="my_radio_button_id6" />
+          <label for="my_radio_button_id6">A Lot</label>
+      </div>
+  </div>
+</div>
+
+  <script src='https://unpkg.com/@yaireo/knobs@latest'></script><script  src="./script.js"></script>
+
+</body>
+</html>

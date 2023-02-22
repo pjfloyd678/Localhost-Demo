@@ -24,8 +24,10 @@ function pdo_connect() {
     global $password;
     global $dbname;
     global $dbport;
+    
     try {
-        $pdodb = new PDO( "mysql:host=" . $hostname . ";dbname=" . $dbname, $username, $password );
+        //$pdodb = new PDO( "mysql:host=" . $hostname . ";dbname=" . $dbname, $username, $password );
+        $pdodb = new PDO( "mysql:host=" . $hostname . ";dbname=" . $dbname . ";port=" . $dbport, $username, $password );
         return $pdodb;
     } catch (PDOException $e) {
         print "Error!: " . $e->getMessage() . "<br/>";
@@ -220,14 +222,14 @@ function doQuery( $query ) {
     return false;
 }
     
-function executeQuery( $query ) {
+function executeQuery( $sql_query ) {
     $dataSet = [
         'code' => 0,
         'response' => []
     ];
     
     $pdb     = pdo_connect();
-    $query   = $pdb->prepare( $query );
+    $query   = $pdb->prepare( $sql_query );
     $query->execute();
     $results = $query->fetchAll(PDO::FETCH_ASSOC);
     if ( $query->errorCode() !== "00000" ) {
